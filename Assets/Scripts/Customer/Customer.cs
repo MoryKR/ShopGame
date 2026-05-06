@@ -12,12 +12,22 @@ public class Customer : MonoBehaviour
         Leaving
     }
 
-    [SerializeField] private float arriveThreshold = 0.1f;
+    [SerializeField] private float arriveThreshold = 0.3f;
     [SerializeField] private int sampleMaxAttempts = 10;
+    [SerializeField] private Sprite[] walkSprites;
+    [SerializeField] private float frameInterval = 0.15f;
+    [SerializeField] private float moveThreshold = 0.05f;
+    [SerializeField] private float wanderInterval = 5f;
 
     private NavMeshAgent agent;
     private SpriteRenderer spriteRenderer;
     private CustomerState state = CustomerState.Wander;
+
+    private int currentFrame = 0;
+    private float frameTimer = 0f;
+    private float wanderTimer = 0f;
+
+    public CustomerState State { get { return state; } }
 
     private void Awake()
     {
@@ -37,17 +47,82 @@ public class Customer : MonoBehaviour
     private void Update()
     {
         UpdateFlip();
+        UpdateWalkAnimation();
 
-        // 1단계는 Wander 상태만 동작
-        if (state == CustomerState.Wander) UpdateWander();
+        switch (state)
+        {
+            case CustomerState.Wander:           UpdateWander(); break;
+            case CustomerState.MovingToCounter:  UpdateMovingToCounter(); break;
+            case CustomerState.WaitingAtCounter: UpdateWaitingAtCounter(); break;
+            case CustomerState.Leaving:          UpdateLeaving(); break;
+        }
     }
 
-    // Wander 상태: 도착하면 새 목표 지점 선택
+    // 외부에서 상태 전환 시 호출
+    public void SetState(CustomerState newState)
+    {
+        state = newState;
+
+        switch (state)
+        {
+            case CustomerState.MovingToCounter:
+                if (Managers.Customer.CounterPoint != null)
+                    agent.SetDestination(Managers.Customer.CounterPoint.position);
+                break;
+            case CustomerState.WaitingAtCounter:
+                agent.ResetPath();
+                break;
+            case CustomerState.Leaving:
+                if (Managers.Customer.ExitPoint != null)
+                    agent.SetDestination(Managers.Customer.ExitPoint.position);
+                break;
+        }
+    }
+
+    // 정지 상태에서 wanderInterval 만큼 대기 후 새 목표 지점 선택
     private void UpdateWander()
+    {
+        if (agent.pathPending)
+        {
+            wanderTimer = 0f;
+            return;
+        }
+
+        if (agent.velocity.magnitude > moveThreshold)
+        {
+            wanderTimer = 0f;
+            return;
+        }
+
+        wanderTimer += Time.deltaTime;
+        if (wanderTimer >= wanderInterval)
+        {
+            wanderTimer = 0f;
+            PickNewWanderTarget();
+        }
+    }
+
+    // CounterPoint 도착 시 WaitingAtCounter로 전환
+    private void UpdateMovingToCounter()
     {
         if (agent.pathPending) return;
         if (agent.remainingDistance > arriveThreshold) return;
-        PickNewWanderTarget();
+        SetState(CustomerState.WaitingAtCounter);
+    }
+
+    // 스페이스바 입력 시 Leaving으로 전환
+    private void UpdateWaitingAtCounter()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+            SetState(CustomerState.Leaving);
+    }
+
+    // ExitPoint 도착 시 제거 요청
+    private void UpdateLeaving()
+    {
+        if (agent.pathPending) return;
+        if (agent.remainingDistance > arriveThreshold) return;
+        Managers.Customer.RemoveCustomer(this);
     }
 
     // 현재 위치 기준 반경 내 NavMesh 위 랜덤 점을 목표로 설정
@@ -61,12 +136,14 @@ public class Customer : MonoBehaviour
             Vector3 candidate = transform.position + new Vector3(random2D.x, random2D.y, 0f);
 
             NavMeshHit hit;
-            if (NavMesh.SamplePosition(candidate, out hit, 2f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(candidate, out hit, 5f, NavMesh.AllAreas))
             {
                 agent.SetDestination(hit.position);
                 return;
             }
         }
+
+        Debug.LogWarning(gameObject.name + ": PickNewWanderTarget 실패 - 주변에 NavMesh 없음");
     }
 
     // 이동 방향에 따라 스프라이트 좌우 반전
@@ -76,5 +153,30 @@ public class Customer : MonoBehaviour
         float vx = agent.velocity.x;
         if (vx > 0.01f) spriteRenderer.flipX = false;
         else if (vx < -0.01f) spriteRenderer.flipX = true;
+    }
+
+    // 이동 중일 때 일정 간격으로 스프라이트 교체, 정지 시 첫 프레임 고정
+    private void UpdateWalkAnimation()
+    {
+        if (spriteRenderer == null) return;
+        if (walkSprites == null || walkSprites.Length == 0) return;
+
+        bool isMoving = agent.velocity.magnitude > moveThreshold;
+
+        if (!isMoving)
+        {
+            currentFrame = 0;
+            frameTimer = 0f;
+            spriteRenderer.sprite = walkSprites[0];
+            return;
+        }
+
+        frameTimer += Time.deltaTime;
+        if (frameTimer >= frameInterval)
+        {
+            frameTimer = 0f;
+            currentFrame = (currentFrame + 1) % walkSprites.Length;
+            spriteRenderer.sprite = walkSprites[currentFrame];
+        }
     }
 }

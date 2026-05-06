@@ -140,7 +140,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 199
+        width: 256
         height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -160,10 +160,10 @@ TextureImporter:
       name: Customer3_1
       rect:
         serializedVersion: 2
-        x: 286
-        y: 358
-        width: 202
-        height: 291
+        x: 256
+        y: 0
+        width: 256
+        height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -182,10 +182,10 @@ TextureImporter:
       name: Customer3_2
       rect:
         serializedVersion: 2
-        x: 535
-        y: 355
-        width: 203
-        height: 294
+        x: 512
+        y: 0
+        width: 256
+        height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -204,10 +204,10 @@ TextureImporter:
       name: Customer3_3
       rect:
         serializedVersion: 2
-        x: 790
-        y: 354
-        width: 234
-        height: 670
+        x: 768
+        y: 0
+        width: 256
+        height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -226,7 +226,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 6953b577488fffa4e879e14dddb7ad1f
     internalID: 0
     vertices: []
     indices: 
