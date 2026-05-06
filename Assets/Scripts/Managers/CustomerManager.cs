@@ -7,7 +7,7 @@ public class CustomerManager
 {
     private int maxCustomerCount = 3;
     private float spawnInterval = 10f;
-    private float wanderRadius = 5f;
+    private float wanderRadius = 10f;
     private float counterInterval = 3f;
 
     private GameObject[] customerPrefabs;

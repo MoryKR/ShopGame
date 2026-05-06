@@ -32,6 +32,15 @@ public class Managers : MonoBehaviour
         DontDestroyOnLoad(go);
         instance = go.GetComponent<Managers>();
 
+        // EventSystem 생성 (없으면 UI 버튼 클릭 불가)
+        if (GameObject.FindObjectOfType<UnityEngine.EventSystems.EventSystem>() == null)
+        {
+            GameObject eventSystemObj = new GameObject("EventSystem");
+            eventSystemObj.AddComponent<UnityEngine.EventSystems.EventSystem>();
+            eventSystemObj.AddComponent<UnityEngine.EventSystems.StandaloneInputModule>();
+            DontDestroyOnLoad(eventSystemObj);
+        }
+
         instance.game.Init();
         instance.customer.Init();
     }

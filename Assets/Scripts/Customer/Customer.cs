@@ -17,11 +17,12 @@ public class Customer : MonoBehaviour
     [SerializeField] private Sprite[] walkSprites;
     [SerializeField] private float frameInterval = 0.15f;
     [SerializeField] private float moveThreshold = 0.05f;
-    [SerializeField] private float wanderInterval = 5f;
+    [SerializeField] private float wanderInterval = 3f;
 
     private NavMeshAgent agent;
     private SpriteRenderer spriteRenderer;
     private CustomerState state = CustomerState.Wander;
+    private CustomerBubbleUI bubbleUI;
 
     private int currentFrame = 0;
     private float frameTimer = 0f;
@@ -37,6 +38,10 @@ public class Customer : MonoBehaviour
         // 2D NavMesh 설정
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+
+        // BubbleUI 초기화
+        bubbleUI = gameObject.AddComponent<CustomerBubbleUI>();
+        bubbleUI.Init(this);
     }
 
     private void Start()
@@ -71,8 +76,10 @@ public class Customer : MonoBehaviour
                 break;
             case CustomerState.WaitingAtCounter:
                 agent.ResetPath();
+                bubbleUI.Show();
                 break;
             case CustomerState.Leaving:
+                bubbleUI.Hide();
                 if (Managers.Customer.ExitPoint != null)
                     agent.SetDestination(Managers.Customer.ExitPoint.position);
                 break;
@@ -110,11 +117,10 @@ public class Customer : MonoBehaviour
         SetState(CustomerState.WaitingAtCounter);
     }
 
-    // 스페이스바 입력 시 Leaving으로 전환
+    // 버튼 클릭 대기 (스페이스바 제거)
     private void UpdateWaitingAtCounter()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            SetState(CustomerState.Leaving);
+        // 버튼 클릭으로 Leaving 전환 (CustomerBubbleUI.OnBubbleClicked에서 처리)
     }
 
     // ExitPoint 도착 시 제거 요청

@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 2575966596581722498, guid: 9445297dbe4d07f4fa795010324d133e, type: 3}
+  m_Sprite: {fileID: 2585321211200896733, guid: 9445297dbe4d07f4fa795010324d133e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -127,13 +127,13 @@ MonoBehaviour:
   arriveThreshold: 0.1
   sampleMaxAttempts: 10
   walkSprites:
-  - {fileID: 2575966596581722498, guid: 9445297dbe4d07f4fa795010324d133e, type: 3}
-  - {fileID: 2470936319628344428, guid: 9445297dbe4d07f4fa795010324d133e, type: 3}
   - {fileID: 2585321211200896733, guid: 9445297dbe4d07f4fa795010324d133e, type: 3}
   - {fileID: -1242412679386328960, guid: 9445297dbe4d07f4fa795010324d133e, type: 3}
+  - {fileID: -195411142, guid: 9445297dbe4d07f4fa795010324d133e, type: 3}
+  - {fileID: 1480582206, guid: 9445297dbe4d07f4fa795010324d133e, type: 3}
   frameInterval: 0.15
   moveThreshold: 0.05
-  wanderInterval: 5
+  wanderInterval: 3
 --- !u!58 &7744515684077794277
 CircleCollider2D:
   m_ObjectHideFlags: 0

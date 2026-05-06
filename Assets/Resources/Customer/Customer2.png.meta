@@ -139,9 +139,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 683
         width: 256
-        height: 1024
+        height: 341
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,10 +160,10 @@ TextureImporter:
       name: Customer2_1
       rect:
         serializedVersion: 2
-        x: 256
-        y: 0
+        x: 768
+        y: 683
         width: 256
-        height: 1024
+        height: 341
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -182,12 +182,12 @@ TextureImporter:
       name: Customer2_2
       rect:
         serializedVersion: 2
-        x: 512
-        y: 0
+        x: 0
+        y: 342
         width: 256
-        height: 1024
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        height: 341
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -204,12 +204,12 @@ TextureImporter:
       name: Customer2_3
       rect:
         serializedVersion: 2
-        x: 768
-        y: 0
+        x: 256
+        y: 342
         width: 256
-        height: 1024
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        height: 341
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -218,6 +218,50 @@ TextureImporter:
       bones: []
       spriteID: 0809cbc204012cee0800000000000000
       internalID: -1242412679386328960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customer2_4
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 342
+        width: 256
+        height: 341
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01246685540745540a8397ca7443825f
+      internalID: -195411142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customer2_5
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 342
+        width: 256
+        height: 341
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3aef774b596e8d42ac1d4570c59ccdc
+      internalID: 1480582206
       vertices: []
       indices: 
       edges: []
@@ -240,6 +284,8 @@ TextureImporter:
       Customer2_1: 2470936319628344428
       Customer2_2: 2585321211200896733
       Customer2_3: -1242412679386328960
+      Customer2_4: -195411142
+      Customer2_5: 1480582206
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -3558552238673493281, guid: 8b776d411bd0eda499aab449968e6adb, type: 3}
+  m_Sprite: {fileID: -2436112452130710196, guid: 8b776d411bd0eda499aab449968e6adb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -105,13 +105,13 @@ MonoBehaviour:
   arriveThreshold: 0.1
   sampleMaxAttempts: 10
   walkSprites:
-  - {fileID: -3558552238673493281, guid: 8b776d411bd0eda499aab449968e6adb, type: 3}
-  - {fileID: -4700774880159784912, guid: 8b776d411bd0eda499aab449968e6adb, type: 3}
   - {fileID: -2436112452130710196, guid: 8b776d411bd0eda499aab449968e6adb, type: 3}
   - {fileID: -8960511433476030677, guid: 8b776d411bd0eda499aab449968e6adb, type: 3}
+  - {fileID: -1890338085, guid: 8b776d411bd0eda499aab449968e6adb, type: 3}
+  - {fileID: -769675692, guid: 8b776d411bd0eda499aab449968e6adb, type: 3}
   frameInterval: 0.15
   moveThreshold: 0.05
-  wanderInterval: 5
+  wanderInterval: 3
 --- !u!195 &3985050959564474090
 NavMeshAgent:
   m_ObjectHideFlags: 0
