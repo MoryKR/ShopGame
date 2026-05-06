@@ -17,6 +17,11 @@ public class Managers : MonoBehaviour
         Init();
     }
 
+    private void Update()
+    {
+        game.Update();
+    }
+
     // 싱글톤 초기화 및 하위 매니저 Init 호출
     private static void Init()
     {

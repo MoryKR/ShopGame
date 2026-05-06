@@ -44,7 +44,7 @@ public class CustomerManager
         coroutineRunner.StartCoroutine(CounterLoop());
     }
 
-    // 일정 시간마다 최대치 미만이면 손님 스폰
+    // 일정 시간마다 최대치 미만이면 손님 스폰 (낮일 때만)
     private IEnumerator SpawnLoop()
     {
         WaitForSeconds spawnWait = new WaitForSeconds(spawnInterval);
@@ -52,11 +52,16 @@ public class CustomerManager
         while (loop)
         {
             yield return spawnWait;
-            if (customers.Count < maxCustomerCount) SpawnCustomer();
+            
+            // 낮일 때만 스폰
+            if (Managers.Game.CurrentState == GameManager.DayNightState.Day)
+            {
+                if (customers.Count < maxCustomerCount) SpawnCustomer();
+            }
         }
     }
 
-    // 일정 시간마다 카운터가 비어있으면 배회 중인 손님 1명을 카운터로 보냄
+    // 일정 시간마다 카운터가 비어있으면 배회 중인 손님 1명을 카운터로 보냄 (낮일 때만)
     private IEnumerator CounterLoop()
     {
         WaitForSeconds counterWait = new WaitForSeconds(counterInterval);
@@ -64,7 +69,12 @@ public class CustomerManager
         while (loop)
         {
             yield return counterWait;
-            if (customerAtCounter == null) SendCustomerToCounter();
+            
+            // 낮일 때만 카운터로 보냄
+            if (Managers.Game.CurrentState == GameManager.DayNightState.Day)
+            {
+                if (customerAtCounter == null) SendCustomerToCounter();
+            }
         }
     }
 
@@ -142,5 +152,17 @@ public class CustomerManager
         if (customerAtCounter == customer) customerAtCounter = null;
         customers.Remove(customer);
         Object.Destroy(customer.gameObject);
+    }
+
+    // 모든 손님 즉시 제거 (밤 전환 시 호출)
+    public void RemoveAllCustomers()
+    {
+        foreach (Customer c in customers)
+        {
+            if (c != null) Object.Destroy(c.gameObject);
+        }
+        customers.Clear();
+        customerAtCounter = null;
+        Debug.Log("CustomerManager: 모든 손님 제거됨");
     }
 }

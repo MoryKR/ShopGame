@@ -21,7 +21,7 @@ public class CustomerBubbleUI : MonoBehaviour
         // Canvas 생성
         GameObject canvasObj = new GameObject("BubbleCanvas");
         canvasObj.transform.SetParent(transform);
-        canvasObj.transform.localPosition = new Vector3(0f, 2f, 0f);
+        canvasObj.transform.localPosition = new Vector3(0f, 4f, 0f);
 
         canvas = canvasObj.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.WorldSpace;
