@@ -8,9 +8,11 @@ public class Managers : MonoBehaviour
 
     private GameManager game = new GameManager();
     private CustomerManager customer = new CustomerManager();
+    private UIManager ui = new UIManager();
 
     public static GameManager Game { get { return Instance.game; } }
     public static CustomerManager Customer { get { return Instance.customer; } }
+    public static UIManager UI { get { return Instance.ui; } }
 
     private void Awake()
     {
@@ -46,6 +48,7 @@ public class Managers : MonoBehaviour
             DontDestroyOnLoad(eventSystemObj);
         }
 
+        instance.ui.Init();
         instance.game.Init();
         instance.customer.Init();
     }

@@ -35,7 +35,7 @@ public class GameManager
             }
         }
 
-        // Night 상태에서 스페이스바 입력 시 낮으로 전환
+        // Night 상태에서 스페이스바 입력 시 낮으로 전환 (디버그용)
         if (currentState == DayNightState.Night && Input.GetKeyDown(KeyCode.Space))
         {
             ChangeToDay();
@@ -49,10 +49,13 @@ public class GameManager
         // 모든 손님 제거
         Managers.Customer.RemoveAllCustomers();
         
-        Debug.Log("GameManager: 밤으로 전환 (추후 Popup 표시 예정)");
+        // Popup 표시
+        Managers.UI.ShowPopup<UI_NightPopup>();
+        
+        Debug.Log("GameManager: 밤으로 전환");
     }
 
-    private void ChangeToDay()
+    public void ChangeToDay()
     {
         currentState = DayNightState.Day;
         dayTimer = 0f;
